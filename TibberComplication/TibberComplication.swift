@@ -136,20 +136,20 @@ struct TibberComplicationView: View {
 
     // MARK: Rectangular
     private var rectangularView: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 8) {
             Circle()
                 .fill(levelColor)
-                .frame(width: 12, height: 12)
-            VStack(alignment: .leading, spacing: 1) {
-                HStack(alignment: .firstTextBaseline, spacing: 2) {
+                .frame(width: 14, height: 14)
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(alignment: .firstTextBaseline, spacing: 3) {
                     Text(entry.hasData ? String(format: "%.3f", entry.price) : "--")
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .font(.system(size: 22, weight: .bold, design: .rounded))
                     Text(entry.currency)
-                        .font(.system(size: 8))
+                        .font(.system(size: 11))
                         .foregroundColor(.secondary)
                 }
                 Text(entry.level.shortLabel)
-                    .font(.system(size: 9, weight: .medium))
+                    .font(.system(size: 12, weight: .medium))
                     .foregroundColor(levelColor)
             }
         }
