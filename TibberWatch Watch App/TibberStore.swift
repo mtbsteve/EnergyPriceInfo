@@ -64,7 +64,9 @@ class TibberStore: ObservableObject {
         let now = Self.todayKey()
         guard let cached = cachedDataDay else { return }
         if cached != now {
+            #if DEBUG
             print("🌅 Day rollover detected: cached=\(cached), now=\(now). Resetting view and refetching.")
+            #endif
             // Reset to Today view — yesterday's "tomorrow" is now today, but our cached
             // tomorrow array is for the wrong day, so we need fresh data anyway.
             showTomorrow = false
@@ -92,7 +94,9 @@ class TibberStore: ObservableObject {
                     // On every refresh, also check for day rollover
                     if let cached = cachedDataDay, cached != Self.todayKey() {
                         await MainActor.run {
+                            #if DEBUG
                             print("🌅 Auto-refresh detected day rollover")
+                            #endif
                             showTomorrow = false
                         }
                     }
@@ -128,11 +132,15 @@ class TibberStore: ObservableObject {
     /// Persist current price + full day arrays so the complication can build its own timeline
     func saveComplicationData() {
         guard let entry = priceData?.currentEntry else {
+            #if DEBUG
             print("⚠️ No current entry to save for complication")
+            #endif
             return
         }
         guard let defaults = UserDefaults(suiteName: Self.appGroupID) else {
+            #if DEBUG
             print("⚠️ Failed to open UserDefaults suite '\(Self.appGroupID)' — check App Group config")
+            #endif
             return
         }
         defaults.set(entry.total, forKey: "complication_price")
@@ -149,7 +157,9 @@ class TibberStore: ObservableObject {
             defaults.set(data, forKey: "complication_tomorrow_entries")
         }
 
+        #if DEBUG
         print("✅ Saved complication data: \(entry.total), level: \(entry.level.rawValue), entries: \(priceData?.today.count ?? 0) today / \(priceData?.tomorrow.count ?? 0) tomorrow")
+        #endif
         WidgetCenter.shared.reloadAllTimelines()
     }
 }

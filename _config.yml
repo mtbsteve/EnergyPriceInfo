@@ -1,0 +1,12 @@
+title: TibberWatch
+description: Privacy policy and project page for the TibberWatch watchOS app.
+theme: jekyll-theme-cayman
+lang: de
+
+# Keep build artefacts and code out of the published Pages site.
+exclude:
+  - TibberWatch.xcodeproj
+  - "TibberWatch Watch App"
+  - TibberComplication
+  - "*.entitlements"
+  - CLAUDE.md
