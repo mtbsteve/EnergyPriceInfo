@@ -93,7 +93,9 @@ struct RawPriceEntry: Codable {
         if let date = formatter.date(from: startsAt) {
             return PriceEntry(total: total, energy: energy, tax: tax, startsAt: date, level: level)
         }
+        #if DEBUG
         print("⚠️ Failed to parse date: \(startsAt)")
+        #endif
         return nil
     }
 }

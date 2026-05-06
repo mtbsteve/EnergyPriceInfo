@@ -1,6 +1,42 @@
-# TibberWatch — watchOS App
+# EnergyPriceInfo — watchOS App
 
 A standalone watchOS app that displays Tibber electricity prices per kWh as a 15-minute resolution bar chart, with a watch face complication showing the current price.
+
+> **Disclaimer.** EnergyPriceInfo is an independent third-party app. It is **not affiliated
+> with, endorsed by, or sponsored by** Tibber AS. "Tibber" is a trademark of Tibber AS;
+> the name is used here only to describe the third-party API the app reads price data
+> from.
+
+**Datenschutz / Privacy policy:** <https://mtbsteve.github.io/TibberWatch/Datenschutzrichtlinie.html>
+([Markdown source](Datenschutzrichtlinie.md))
+
+---
+
+## App description
+
+EnergyPriceInfo lets Tibber customers see exactly when electricity will be cheapest
+today and tomorrow, directly on their Apple Watch. No iPhone required, no companion
+app, no account beyond your existing Tibber subscription.
+
+The main screen shows a 96-bar chart at quarter-hourly resolution (the same resolution
+Tibber publishes via its day-ahead price feed), color-coded by Tibber's price-level
+classification — `VERY_CHEAP`, `CHEAP`, `NORMAL`, `EXPENSIVE`, `VERY_EXPENSIVE`. A
+current-price card at the bottom shows the live 15-minute slot, and a stats row gives
+you Min / Avg / Max for the day on screen. Once tomorrow's prices clear (typically
+early afternoon CET), a toggle appears so you can plan ahead — schedule the dishwasher,
+charge the EV, run the heat pump — for the cheapest window.
+
+A watch-face complication keeps the current price (with its color level) on your wrist
+without launching the app. Tap it to open the full chart. The complication updates
+automatically every 15 minutes in sync with the Tibber slot boundaries.
+
+The app supports multiple Tibber currencies out of the box (EUR, GBP, NOK, SEK, DKK)
+and includes a built-in **Demo Mode** that loads sample data so you can preview the UI
+without a Tibber account.
+
+**Privacy.** EnergyPriceInfo sends nothing to any server other than Tibber itself, has no
+analytics, no tracking, no third-party SDKs, and no advertising. Your Personal Access
+Token stays on your Apple Watch in the app's sandboxed `UserDefaults`.
 
 ---
 
@@ -183,3 +219,68 @@ TibberWatch (Watch App target)              TibberComplication (Widget target)
 ## Credits
 
 Built with [Tibber's GraphQL API](https://developer.tibber.com/docs/overview). Not affiliated with or endorsed by Tibber.
+
+---
+
+## App Store / TestFlight submission checklist
+
+The repo already contains the artefacts Apple requires; before uploading the first
+build, finish the manual steps:
+
+- [ ] **Add the privacy manifests to the Xcode project.** The two
+  `PrivacyInfo.xcprivacy` files (one per target) are in the repo but Xcode does not
+  auto-pick up new resource files — drag each into the Xcode project navigator and
+  tick the matching target's checkbox in **Target Membership**:
+  - `TibberWatch Watch App/PrivacyInfo.xcprivacy` → **TibberWatch Watch App** target
+  - `TibberComplication/PrivacyInfo.xcprivacy` → **TibberComplication** target
+- [ ] **Encryption export compliance** is already declared (`ITSAppUsesNonExemptEncryption = NO`)
+  in both target build settings and in `TibberComplication/Info.plist`. App Store
+  Connect will skip the export-compliance prompt.
+- [ ] **Privacy Policy URL** for App Store Connect:
+  `https://mtbsteve.github.io/TibberWatch/Datenschutzrichtlinie.html` — works once
+  GitHub Pages is enabled (Settings → Pages → Source: `main` / `/`).
+- [ ] **Fill in the placeholders** in `Datenschutzrichtlinie.md` — controller name +
+  address + email (DSGVO Art. 13) and the publication date — before flipping Pages on.
+- [ ] **App Privacy questionnaire** in App Store Connect: declare *Data Not Collected*
+  for every category. The Tibber token leaves your device only when the watch app
+  itself talks to Tibber's API; that traffic is between the user's device and Tibber,
+  not us.
+- [ ] **Bump `CURRENT_PROJECT_VERSION`** before each upload to App Store Connect so
+  builds don't collide.
+- [ ] **App icon set** completeness — the watchOS asset catalog needs every required
+  size; Apple will reject the upload if any are missing. Generate with
+  [appicon.co](https://www.appicon.co) or the icon generator of your choice.
+- [ ] **Watch-face screenshots** for the App Store listing — at least one per supported
+  complication family (`accessoryCircular`, `accessoryCorner`, `accessoryInline`,
+  `accessoryRectangular`).
+
+### App Store description (template)
+
+A copy-pasteable description for App Store Connect. Tweak as needed; keep the
+trademark disclaimer.
+
+```
+EnergyPriceInfo puts your Tibber electricity prices on your wrist. See exactly when
+power will be cheapest today and tomorrow — without picking up your phone.
+
+• 96-bar chart at 15-minute resolution, colour-coded by Tibber's price-level
+  classification (very cheap → very expensive).
+• Current-price card with the live 15-minute slot.
+• Min / Avg / Max stats for the day on screen.
+• Tomorrow toggle: as soon as the day-ahead market clears, plan the dishwasher,
+  the EV, or the heat pump for the cheapest window.
+• Watch-face complication: keeps the current price and colour level on your face;
+  refreshes every 15 minutes in sync with Tibber's slot boundaries.
+• Multi-currency: EUR, GBP, NOK, SEK, DKK out of the box.
+• Demo Mode: preview the UI without a Tibber account.
+
+Requires a Tibber account and a Personal Access Token from
+developer.tibber.com/settings/access-token.
+
+Privacy: no analytics, no tracking, no third-party SDKs, no servers. The app talks
+only to Tibber's API directly from your Apple Watch. Your token stays on your
+device.
+
+Disclaimer: TibberWatch is an independent third-party app. It is not affiliated
+with, endorsed by, or sponsored by Tibber AS. "Tibber" is a trademark of Tibber AS.
+```

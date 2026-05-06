@@ -68,9 +68,11 @@ class TibberAPIService {
             throw TibberError.networkError("Invalid response")
         }
 
+        #if DEBUG
         print("🔌 Tibber HTTP status: \(httpResponse.statusCode)")
         let rawString = String(data: data, encoding: .utf8) ?? "unreadable"
         print("🔌 Tibber raw response: \(rawString.prefix(500))")
+        #endif
 
         guard httpResponse.statusCode == 200 else {
             throw TibberError.httpError(httpResponse.statusCode)
@@ -81,7 +83,9 @@ class TibberAPIService {
 
         if let errors = tibberResponse.errors, !errors.isEmpty {
             let msg = errors.first?.message ?? "Unknown API error"
+            #if DEBUG
             print("🔌 Tibber API error: \(msg)")
+            #endif
             throw TibberError.apiError(msg)
         }
 
@@ -97,7 +101,9 @@ class TibberAPIService {
         let currencyCode = priceInfo.current?.currency ?? priceInfo.today.first?.currency ?? "EUR"
         let currencyUnit = Self.currencyUnit(for: currencyCode)
 
+        #if DEBUG
         print("✅ Got \(todayEntries.count) entries today, \(tomorrowEntries.count) tomorrow, currency: \(currencyCode)")
+        #endif
 
         return PriceData(
             today: todayEntries,

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		660AC60B2FAB4A0A00F3F8B3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 660AC60A2FAB4A0A00F3F8B3 /* PrivacyInfo.xcprivacy */; };
 		66C9C8B32F9BAB4A00A25777 /* TibberWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 66C9C8B22F9BAB4A00A25777 /* TibberWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		66C9C9132F9CB43900A25777 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 66C9C9062F9CB43900A25777 /* README.md */; };
 		66C9C9362F9E6A4A00A25777 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C9C9352F9E6A4A00A25777 /* WidgetKit.framework */; };
@@ -57,6 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		660AC60A2FAB4A0A00F3F8B3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		66C9C8AC2F9BAB4A00A25777 /* TibberWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TibberWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C9C8B22F9BAB4A00A25777 /* TibberWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TibberWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C9C9062F9CB43900A25777 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		66C9C8A52F9BAB4A00A25777 = {
 			isa = PBXGroup;
 			children = (
+				660AC60A2FAB4A0A00F3F8B3 /* PrivacyInfo.xcprivacy */,
 				66C9C9592F9E96C900A25777 /* TibberComplicationExtension.entitlements */,
 				66C9C9062F9CB43900A25777 /* README.md */,
 				66C9C8B62F9BAB4A00A25777 /* TibberWatch Watch App */,
@@ -287,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				660AC60B2FAB4A0A00F3F8B3 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +456,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TibberWatch;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -488,6 +493,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = TibberWatch;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -563,6 +569,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TibberComplication/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TibberComplication;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -597,6 +604,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TibberComplication/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TibberComplication;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
