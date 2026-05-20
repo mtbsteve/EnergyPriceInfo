@@ -123,8 +123,8 @@ struct TibberComplicationView: View {
             .padding(8)
             .widgetLabel {
                 Text(entry.hasData
-                     ? "Tibber  \(String(format: "%.2f", entry.price)) \(currencySymbol)"
-                     : "Tibber  --")
+                     ? "Energy  \(String(format: "%.2f", entry.price)) \(currencySymbol)"
+                     : "Price  --")
             }
     }
 
@@ -167,7 +167,7 @@ struct TibberPriceComplication: Widget {
                 .containerBackground(.clear, for: .widget)
                 .widgetURL(URL(string: "tibberwatch://open")!)
         }
-        .configurationDisplayName("Tibber Price")
+        .configurationDisplayName("Energy Price")
         .description("Current electricity price per kWh")
         .supportedFamilies([
             .accessoryCircular,
