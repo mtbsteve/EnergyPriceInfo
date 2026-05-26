@@ -1,19 +1,29 @@
 import SwiftUI
+#if os(watchOS)
+import WatchKit
+#endif
 
 // MARK: - Price Chart View
 struct PriceChartView: View {
     let entries: [PriceEntry]
     let minPrice: Double
     let maxPrice: Double
+    @Binding var selectedIndex: Int?
 
     private let chartHeight: CGFloat = 70
     private let barSpacing: CGFloat = 0.5
+
+    private var indicatorIndex: Int? {
+        if let selectedIndex { return selectedIndex }
+        return entries.firstIndex(where: \.isCurrentHour)
+    }
 
     var body: some View {
         GeometryReader { geo in
             let totalSpacing = barSpacing * CGFloat(max(entries.count - 1, 0))
             let availableWidth = geo.size.width - totalSpacing
             let barWidth = entries.isEmpty ? 0 : availableWidth / CGFloat(entries.count)
+            let slotWidth = barWidth + barSpacing
 
             ZStack(alignment: .bottom) {
                 // Grid lines
@@ -42,9 +52,9 @@ struct PriceChartView: View {
                 // Hour ticks at 06, 12, 18 (only useful for 96-slot view)
                 hourTicks(geoWidth: geo.size.width, barWidth: barWidth)
 
-                // Current slot indicator
-                if let currentIdx = entries.firstIndex(where: \.isCurrentHour) {
-                    let xPos = (CGFloat(currentIdx) + 0.5) * (barWidth + barSpacing)
+                // Slot indicator: user-selected position if set, otherwise current hour
+                if let idx = indicatorIndex {
+                    let xPos = (CGFloat(idx) + 0.5) * slotWidth
 
                     Rectangle()
                         .fill(Color.white.opacity(0.95))
@@ -54,6 +64,21 @@ struct PriceChartView: View {
                 }
             }
             .frame(height: chartHeight)
+            .contentShape(Rectangle())
+            .gesture(
+                DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                    .onChanged { value in
+                        guard !entries.isEmpty, slotWidth > 0 else { return }
+                        let clampedX = min(max(value.location.x, 0), geo.size.width)
+                        let newIdx = min(entries.count - 1, max(0, Int(clampedX / slotWidth)))
+                        if newIdx != selectedIndex {
+                            selectedIndex = newIdx
+                            #if os(watchOS)
+                            WKInterfaceDevice.current().play(.click)
+                            #endif
+                        }
+                    }
+            )
         }
         .frame(height: chartHeight)
     }

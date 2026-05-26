@@ -33,11 +33,25 @@ struct PriceMainView: View {
     @EnvironmentObject var store: TibberStore
     let priceData: PriceData
 
+    @State private var selectedIndex: Int? = nil
+
     // Computed stats based on the currently displayed day
     private var displayedEntries: [PriceEntry] { store.displayedEntries }
     private var minPrice: Double { PriceData.minPrice(of: displayedEntries) }
     private var maxPrice: Double { PriceData.maxPrice(of: displayedEntries) }
     private var avgPrice: Double { PriceData.avgPrice(of: displayedEntries) }
+
+    /// Entry shown in the info card: the user-selected slot if any, otherwise the live "now" entry.
+    private var infoEntry: PriceEntry? {
+        if let idx = selectedIndex, displayedEntries.indices.contains(idx) {
+            return displayedEntries[idx]
+        }
+        return priceData.currentEntry
+    }
+
+    private var infoIsCurrent: Bool {
+        selectedIndex == nil || infoEntry?.isCurrentHour == true
+    }
 
     var body: some View {
         ScrollView {
@@ -56,8 +70,12 @@ struct PriceMainView: View {
                     maxPrice: maxPrice
                 )
 
-                if let current = priceData.currentEntry {
-                    CurrentPriceCard(entry: current, currency: priceData.currency)
+                if let entry = infoEntry {
+                    CurrentPriceCard(
+                        entry: entry,
+                        currency: priceData.currency,
+                        isCurrent: infoIsCurrent
+                    )
                 }
 
                 statsRow
@@ -115,9 +133,13 @@ struct PriceMainView: View {
         PriceChartView(
             entries: store.displayedEntries,
             minPrice: minPrice,
-            maxPrice: maxPrice
+            maxPrice: maxPrice,
+            selectedIndex: $selectedIndex
         )
         .padding(.vertical, 2)
+        .onChange(of: store.showTomorrow) { _, _ in
+            selectedIndex = nil
+        }
     }
 
     private var statsRow: some View {
@@ -176,6 +198,7 @@ struct StatCell: View {
 struct CurrentPriceCard: View {
     let entry: PriceEntry
     let currency: String
+    var isCurrent: Bool = true
 
     private var levelText: String {
         switch entry.level {
@@ -200,9 +223,9 @@ struct CurrentPriceCard: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
-                Text("NOW")
+                Text(isCurrent ? "NOW" : entry.timeLabel)
                     .font(.system(size: 8, weight: .bold))
-                    .foregroundColor(.secondary)
+                    .foregroundColor(isCurrent ? .secondary : .blue)
                 HStack(alignment: .firstTextBaseline, spacing: 2) {
                     Text(String(format: "%.3f", entry.total))
                         .font(.system(size: 16, weight: .bold, design: .monospaced))
