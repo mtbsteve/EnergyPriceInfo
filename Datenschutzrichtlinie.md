@@ -1,6 +1,6 @@
 # Datenschutzrichtlinie für EnergyPriceInfo
 
-*Stand: 6. Mai 2026*
+*Stand: 26. Mai 2026*
 
 Diese Datenschutzrichtlinie beschreibt, welche Daten die App **EnergyPriceInfo** (im Folgenden
 „die App") verarbeitet, wie sie verarbeitet werden und welche Rechte Sie als Nutzer:in
@@ -110,10 +110,11 @@ Sie die App deinstallieren oder den Token über „Change Token" zurücksetzen.
 
 ## 11. Hinweis zu Markenrechten
 
-TibberWatch ist ein unabhängiges Drittprodukt. Es steht in keiner geschäftlichen oder
+EnergyPriceInfo ist ein unabhängiges Drittprodukt. Es steht in keiner geschäftlichen oder
 personellen Verbindung zu **Tibber AS** und wird von Tibber weder unterstützt noch
 gesponsert. „Tibber" ist eine Marke von Tibber AS; der Name wird hier nur zur
 Beschreibung der Daten verwendet, die die App über die offizielle Tibber-API ausliest.
+Bei der Nutzung des Tibber API's gelten die Bestimmungen von Tibber: <https://tibber.com/en/terms/privacy-policy>
 
 ## 12. Änderungen dieser Datenschutzrichtlinie
 
