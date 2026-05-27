@@ -7,7 +7,7 @@ A standalone watchOS app that displays Tibber electricity prices per kWh as a 15
 > the name is used here only to describe the third-party API the app reads price data
 > from.
 
-**Datenschutz / Privacy policy:** <https://mtbsteve.github.io/TibberWatch/Datenschutzrichtlinie.html>
+**Datenschutz / Privacy policy:** <https://mtbsteve.github.io/EnergyPriceInfo/Datenschutzrichtlinie.html>
 ([Markdown source](Datenschutzrichtlinie.md))
 
 ---
